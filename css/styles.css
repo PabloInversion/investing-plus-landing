@@ -111,6 +111,10 @@ h2.title{font-size:clamp(28px,4.6vw,44px); font-weight:800; margin-bottom:16px}
 .lvl-img{aspect-ratio:3/4; position:relative; overflow:hidden; background:linear-gradient(160deg,#0f1a12,#070a08)}
 .lvl-img img{width:100%; height:100%; object-fit:cover}
 .lvl-tag{position:absolute; top:12px; left:12px; background:var(--green); color:#06130B; font-family:Sora,sans-serif; font-weight:800; font-size:12px; padding:5px 12px; border-radius:8px}
+@media(max-width:719px){
+  .lvl-tag{top:auto; left:50%; bottom:10px; transform:translateX(-50%); white-space:nowrap}
+}
+.lvl-cta{display:grid; place-items:center; grid-column:1/-1; padding:28px; text-align:center}
 .lvl-body{padding:16px 16px 20px}
 .lvl-body h3{font-size:15.5px; margin-bottom:6px; line-height:1.25}
 .lvl-body p{font-size:13px; color:var(--muted)}
@@ -273,8 +277,15 @@ footer{border-top:1px solid var(--line); padding:42px 0 56px; background:var(--b
 .benef .ico [data-lucide]{width:20px; height:20px; stroke-width:2.2}
 
 /* ===== 3D hover tilt (premium, like Linear/Vercel cards) ===== */
-[data-tilt]{transform-style:preserve-3d; will-change:transform}
+[data-tilt]{transform-style:preserve-3d; will-change:transform; transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease}
 [data-tilt]:hover{transition:transform .08s linear}
+
+/* ===== Efecto táctil elegante en mobile (sin mouse) ===== */
+[data-tilt].touch-active{
+  transform:scale(.97) translateY(-2px);
+  border-color:rgba(43,217,118,.5) !important;
+  box-shadow:0 16px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(43,217,118,.18), 0 0 24px rgba(43,217,118,.22) !important;
+}
 
 /* ===== CTA banner reusable ===== */
 .cta-banner{margin-top:48px; display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between; background:linear-gradient(135deg,var(--card),#0b130d); border:1px solid rgba(43,217,118,.28); border-radius:20px; padding:28px 30px; box-shadow:0 30px 70px rgba(0,0,0,.4)}

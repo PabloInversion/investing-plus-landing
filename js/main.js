@@ -57,7 +57,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   window.addEventListener('resize',()=>{init();},{passive:true});
 })();
 
-// ===== Tilt 3D en cards premium (estilo Linear/Vercel) =====
+// ===== Tilt 3D en cards premium (estilo Linear/Vercel) — solo con mouse =====
 (function(){
   if(reduce || matchMedia('(pointer:coarse)').matches) return;
   document.querySelectorAll('[data-tilt]').forEach(card=>{
@@ -75,6 +75,17 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       if(raf) cancelAnimationFrame(raf);
       card.style.transform='perspective(900px) rotateX(0) rotateY(0) translateY(0)';
     });
+  });
+})();
+
+// ===== Efecto táctil elegante en mobile/tablet (sin mouse) =====
+(function(){
+  if(reduce || !matchMedia('(pointer:coarse)').matches) return;
+  document.querySelectorAll('[data-tilt]').forEach(card=>{
+    card.addEventListener('touchstart',()=>{ card.classList.add('touch-active'); },{passive:true});
+    const release=()=>{ setTimeout(()=>card.classList.remove('touch-active'),180); };
+    card.addEventListener('touchend',release,{passive:true});
+    card.addEventListener('touchcancel',release,{passive:true});
   });
 })();
 
