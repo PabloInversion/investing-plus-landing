@@ -36,7 +36,7 @@ module.exports = async function handler(req, res) {
   ].filter((f) => f.value);
 
   async function crearContacto(fields) {
-    return fetch('https://api.systeme.io/api/contacts', {
+    const r = await fetch('https://api.systeme.io/api/contacts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,29 +44,39 @@ module.exports = async function handler(req, res) {
       },
       body: JSON.stringify({ email, fields }),
     });
+    const data = await r.json().catch(() => ({}));
+    return { r, data };
   }
 
+  const esDuplicado = (data) =>
+    Array.isArray(data?.violations) &&
+    data.violations.some(
+      (v) => v.propertyPath === 'email' && /ya se ha utilizado|already.*used/i.test(v.message || '')
+    );
+
   try {
-    let r = await crearContacto(fieldsFull);
+    let { r, data } = await crearContacto(fieldsFull);
 
     // Si algun slug de campo personalizado no existe en la cuenta,
     // reintentamos solo con nombre/apellido (campos estandar de Systeme.io).
-    if (!r.ok && r.status === 422) {
-      r = await crearContacto([
+    if (!r.ok && r.status === 422 && !esDuplicado(data)) {
+      ({ r, data } = await crearContacto([
         { slug: 'first_name', value: firstName },
         { slug: 'surname', value: lastName },
-      ]);
+      ]));
     }
 
-    // 422 tambien puede significar "el contacto ya existe" — lo tratamos
-    // como exito porque el dato ya esta capturado en Systeme.io.
-    if (!r.ok && r.status !== 422) {
-      const errText = await r.text();
-      console.error('Systeme.io error:', r.status, errText);
-      return res.status(502).json({ ok: false, error: 'systeme_error' });
+    if (r.ok) {
+      return res.status(200).json({ ok: true });
     }
 
-    return res.status(200).json({ ok: true });
+    // El contacto ya existia: el dato sigue capturado en Systeme.io.
+    if (esDuplicado(data)) {
+      return res.status(200).json({ ok: true, alreadyExists: true });
+    }
+
+    console.error('Systeme.io rechazo la solicitud:', r.status, data);
+    return res.status(400).json({ ok: false, error: 'systeme_rejected', detail: data?.detail });
   } catch (err) {
     console.error('Error conectando con Systeme.io:', err);
     return res.status(500).json({ ok: false, error: 'unexpected_error' });

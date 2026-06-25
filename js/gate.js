@@ -106,7 +106,15 @@ gateForm.addEventListener('submit', async (e) => {
       }),
     });
 
-    if (!res.ok) throw new Error('request_failed');
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok || !data.ok) {
+      const msg =
+        data.error === 'systeme_rejected' && /correo/i.test(data.detail || '')
+          ? 'Ese correo no parece válido. Revisalo e intentá de nuevo.'
+          : 'Algo salió mal. Intentá de nuevo en un momento.';
+      throw new Error(msg);
+    }
 
     gateForm.style.display = 'none';
     gateSuccess.classList.add('show');
@@ -117,7 +125,7 @@ gateForm.addEventListener('submit', async (e) => {
     gateSubmitBtn.disabled = false;
     gateSubmitLabel.style.display = 'inline';
     gateLoader.classList.remove('show');
-    gateError.textContent = 'Algo salió mal. Intentá de nuevo en un momento.';
+    gateError.textContent = err.message || 'Algo salió mal. Intentá de nuevo en un momento.';
     gateError.classList.add('show');
   }
 });
