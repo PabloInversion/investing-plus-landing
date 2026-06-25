@@ -51,13 +51,32 @@ const reduceGate = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 // ===== Selector de país =====
 const paisSelect = document.getElementById('gPais');
+const prefixEl = document.getElementById('gPrefix');
+const telefonoInput = document.getElementById('gTelefono');
+
 if (paisSelect && typeof PAISES !== 'undefined') {
   PAISES.forEach((p) => {
     const opt = document.createElement('option');
     opt.value = p.code;
-    opt.textContent = p.dial ? `${p.name} (${p.dial})` : p.name;
+    opt.textContent = p.dial ? `${paisFlag(p.code)} ${p.name} (${p.dial})` : `${paisFlag(p.code)} ${p.name}`;
     if (p.code === 'CR') opt.selected = true;
     paisSelect.appendChild(opt);
+  });
+
+  const syncPrefix = () => {
+    const p = PAISES.find((x) => x.code === paisSelect.value);
+    prefixEl.textContent = p && p.dial ? p.dial : '+ —';
+  };
+  syncPrefix();
+  paisSelect.addEventListener('change', syncPrefix);
+}
+
+// ===== Formato del telefono con separador (ej. 8729-7438) =====
+if (telefonoInput) {
+  telefonoInput.addEventListener('input', () => {
+    const digits = telefonoInput.value.replace(/\D/g, '').slice(0, 12);
+    telefonoInput.value =
+      digits.length > 4 ? `${digits.slice(0, 4)}-${digits.slice(4)}` : digits;
   });
 }
 

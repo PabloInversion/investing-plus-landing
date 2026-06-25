@@ -26,3 +26,15 @@ const PAISES = [
   { code: "GQ", dial: "+240", name: "Guinea Ecuatorial" },
   { code: "OT", dial: "", name: "Otro país" },
 ];
+
+// Convierte un codigo ISO de 2 letras en su emoji de bandera (sin tener que
+// guardar el emoji a mano por cada pais).
+function paisFlag(code) {
+  if (!code || code === "OT") return "🌐";
+  return String.fromCodePoint(
+    ...code
+      .toUpperCase()
+      .split("")
+      .map((c) => 0x1f1e6 + c.charCodeAt(0) - 65)
+  );
+}

@@ -321,10 +321,13 @@ footer{border-top:1px solid var(--line); padding:42px 0 56px; background:var(--b
 .gate-card .sub{text-align:center; font-size:14.5px; color:var(--muted); margin-bottom:26px; line-height:1.55}
 .gate-form{display:grid; gap:14px}
 .gate-row{display:grid; gap:14px}
-@media(min-width:480px){.gate-row.phone{grid-template-columns:128px 1fr}}
 .gate-field label{display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:6px}
 .gate-input, .gate-select{width:100%; padding:13px 15px; border-radius:11px; background:var(--card2); border:1px solid var(--line); color:var(--text); font-size:15px; font-family:Inter,sans-serif; outline:none; transition:border-color .15s}
 .gate-input:focus, .gate-select:focus{border-color:var(--green)}
+.gate-select{text-overflow:ellipsis; padding-right:32px}
+.gate-phone-wrap{display:flex; align-items:stretch; gap:8px}
+.gate-phone-prefix{flex:0 0 auto; display:flex; align-items:center; justify-content:center; min-width:60px; padding:0 12px; border-radius:11px; background:var(--card2); border:1px solid var(--line); color:var(--green); font-family:Sora,sans-serif; font-weight:700; font-size:14px; white-space:nowrap}
+.gate-phone-input{flex:1}
 .gate-select{appearance:none; cursor:pointer; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%238B998F'/></svg>"); background-repeat:no-repeat; background-position:right 14px center}
 .gate-error{font-size:12.5px; color:var(--red); margin-top:-4px; display:none}
 .gate-error.show{display:block}

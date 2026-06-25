@@ -41,14 +41,16 @@
         <input id="gEmail" class="gate-input" type="email" name="email" placeholder="tucorreo@ejemplo.com" autocomplete="email" required />
       </div>
 
-      <div class="gate-row phone">
-        <div class="gate-field">
-          <label for="gPais">País</label>
-          <select id="gPais" class="gate-select" name="pais" required></select>
-        </div>
-        <div class="gate-field">
-          <label for="gTelefono">WhatsApp / Teléfono</label>
-          <input id="gTelefono" class="gate-input" type="tel" name="telefono" placeholder="8888 8888" autocomplete="tel" required />
+      <div class="gate-field">
+        <label for="gPais">País</label>
+        <select id="gPais" class="gate-select" name="pais" required></select>
+      </div>
+
+      <div class="gate-field">
+        <label for="gTelefono">WhatsApp / Teléfono</label>
+        <div class="gate-phone-wrap">
+          <span class="gate-phone-prefix" id="gPrefix">+506</span>
+          <input id="gTelefono" class="gate-input gate-phone-input" type="tel" name="telefono" placeholder="8888-8888" autocomplete="tel" inputmode="numeric" required />
         </div>
       </div>
 
