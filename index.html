@@ -14,450 +14,65 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <a class="logo logo-text" href="#top">Investing<span class="plus">+</span></a>
-    <nav class="nav-links">
-      <a href="#metodo">Método</a>
-      <a href="#incluye">Qué incluye</a>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" class="btn btn-ghost nav-ghost" target="_blank" rel="noopener">Agendar llamada</a>
-      <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary" target="_blank" rel="noopener">Quiero empezar</a>
-    </div>
-  </div>
-</header>
-
-<section class="hero" id="top">
+<section class="gate-screen">
   <div class="hero-bg"><div class="grid-lines"></div></div>
-  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-  <svg class="hero-line" viewBox="0 0 1440 900" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path class="draw" d="M-50,760 C200,740 320,700 480,620 C640,540 720,540 900,420 C1080,300 1180,240 1500,80" stroke="rgba(43,217,118,.32)" stroke-width="2.5"/>
-  </svg>
-  <div class="wrap hero-grid">
-    <div class="reveal in" data-hero-text>
-      <span class="hero-badge"><i data-lucide="zap" class="ic-12"></i> Programa Inversión en Acción · Investing+</span>
-      <h1>Hacé que tu dinero <span class="hl">trabaje para vos</span>, no para el banco</h1>
-      <p class="sub">Aprendé a invertir en la bolsa de EE.UU. con un método claro y estructurado, con acompañamiento para resolver tus dudas. Vamos a construir tu estrategia financiera paso a paso.</p>
-      <div class="counter-box">
-        <span class="counter" id="counter">$0</span>
-        <span class="counter-lbl">Ponemos a trabajar el interés compuesto a nuestro favor.</span>
-      </div>
-      <div class="hero-cta" style="margin-top:24px">
-        <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Quiero empezar a invertir →</a>
-        <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Agendar llamada</a>
-      </div>
-      <p class="hero-cta-note">Si querés conocer más del programa Inversión en Acción, agendá una llamada conmigo o con un miembro de nuestro equipo. Si ya estás listo para empezar, hacé clic en "Quiero empezar" e iniciamos tu nuevo camino.</p>
-    </div>
-    <div class="hero-portrait reveal in" data-tilt>
-      <div class="portrait-frame">
-        <img src="assets/img/principal.png" alt="Pablo Narváez, Entrenador Financiero" loading="eager" decoding="async" />
-        <div class="name-tag"><div class="n">Pablo Narváez</div><div class="r">Entrenador Financiero</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+  <canvas class="hero-canvas" id="gateCanvas" aria-hidden="true"></canvas>
 
-<!-- PROBLEMA + GRAFICO COMPARATIVO -->
-<section class="sec">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">El problema</span>
-      <h2 class="title">$10,000 en el banco no es lo mismo<br>que $10,000 invertidos</h2>
-      <p class="lead">Tu dinero en el banco apenas le gana a la inflación. Invertido con estrategia, el interés compuesto lo multiplica. Mirá la diferencia con el tiempo:</p>
+  <div class="gate-card reveal in">
+    <div class="gate-logo">
+      <span class="wordmark">Investing<span class="green">+</span></span>
+      <span class="tag">Inversión en Acción</span>
     </div>
-    <div class="prob-grid">
-      <div class="prob-card bad reveal"><div class="prob-num">~4%</div><h3>Tu dinero en el banco</h3><p class="muted">Rendimiento anual limitado que la inflación reduce día a día. Tu plata se queda casi quieta mientras todo sube de precio.</p></div>
-      <div class="prob-card good reveal"><div class="prob-num">~15.4%</div><h3>Tu dinero en la bolsa</h3><p class="muted">Rendimiento anual compuesto histórico de los últimos 10 años del S&amp;P 500. Con educación correcta, tu dinero trabaja para vos.</p></div>
-    </div>
+    <span class="gate-badge">⚡ Acceso al programa</span>
+    <h1>Antes de entrar, contanos quién eres</h1>
+    <p class="sub">Déjanos tus datos y accedé de inmediato a toda la información del programa Inversión en Acción.</p>
 
-    <div class="chart-wrap reveal">
-      <div class="chart-head">
-        <h3>$10,000 a 10 años: banco vs. bolsa</h3>
-        <span style="font-size:13px; color:var(--muted)">Misma inversión inicial, dos caminos.</span>
+    <form id="gateForm" class="gate-form" novalidate>
+      <div class="gate-field">
+        <label for="gNombre">Nombre completo</label>
+        <input id="gNombre" class="gate-input" type="text" name="nombre" placeholder="Tu nombre" autocomplete="name" required />
       </div>
-      <div class="chart-svg-box">
-        <svg id="cmpChart" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparación de crecimiento banco vs bolsa">
-          <g id="axisG"></g>
-          <path id="lnBanco" class="ln ln-banco" d="" />
-          <path id="lnBolsa" class="ln ln-bolsa" d="" />
-          <text id="lblBanco" class="end-lbl banco" x="0" y="0"></text>
-          <text id="lblBolsa" class="end-lbl bolsa" x="0" y="0"></text>
-        </svg>
-      </div>
-      <div class="chart-legend">
-        <span><i class="banco"></i> Banco (~4% anual)</span>
-        <span><i class="bolsa"></i> Bolsa · S&amp;P 500 (~15.4% anual)</span>
-      </div>
-      <div class="chart-result">
-        <div class="chip-res banco"><div class="lbl">En el banco a 10 años</div><div class="amt" id="resBanco">$0</div></div>
-        <div class="chip-res bolsa"><div class="lbl">Invertido a 10 años</div><div class="amt" id="resBolsa">$0</div></div>
-      </div>
-      <div class="chart-compare">
-        <p>Los mismos <b class="green">$10,000</b> pueden generar solo <b id="gainBanco">$0</b> de ganancia en 10 años en el banco… o podrías haber generado <b class="green" id="gainBolsa">$0</b> de ganancia en el mismo período, invirtiendo con estrategia.</p>
-        <span class="chart-motiv">El tiempo y la decisión correcta son tu mayor ventaja. Cuanto antes empezás, más trabaja tu dinero para vos.</span>
-      </div>
-      <p class="chart-note">Ejemplo ilustrativo con $10,000 iniciales y aportes únicos. Banco estimado al 4% anual; bolsa al 15.4% anual compuesto, basado en el rendimiento histórico de los últimos 10 años del índice S&amp;P 500. <b>Los rendimientos pasados no garantizan resultados futuros</b> y este ejemplo no constituye una promesa ni recomendación de inversión.</p>
-    </div>
-  </div>
-</section>
 
-<!-- SOLUCION -->
-<section class="sec band">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">La solución</span>
-      <h2 class="title">Investing + tu sistema educativo<br>paso a paso</h2>
-      <p class="lead">Investing+ te guía desde las bases hasta construir una estrategia de inversión entendible, ordenada y sostenible — sin atajos ni promesas irreales.</p>
-    </div>
-  </div>
-</section>
+      <div class="gate-field">
+        <label for="gEmail">Correo electrónico</label>
+        <input id="gEmail" class="gate-input" type="email" name="email" placeholder="tucorreo@ejemplo.com" autocomplete="email" required />
+      </div>
 
-<!-- METODO 7 NIVELES -->
-<section class="sec" id="metodo">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">El método</span>
-      <h2 class="title">7 niveles, de cero a inversionista</h2>
-      <p class="lead">Un camino claro y progresivo. Cada nivel te acerca a invertir con confianza y construir tu estrategia, a tu ritmo y sin complicaciones.</p>
-    </div>
-    <div class="method-grid">
-      <div class="lvl reveal" data-tilt><div class="lvl-img"><img src="assets/img/paso1.png" alt="Nivel 1: Despertá tu mente inversora" loading="lazy" decoding="async"><span class="lvl-tag">Nivel 1</span></div><div class="lvl-body"><h3>Despertá tu mente inversora</h3><p>Cómo piensan los que hacen crecer su dinero. Rompé mitos y entendé el interés compuesto.</p></div></div>
-      <div class="lvl reveal" data-tilt><div class="lvl-img"><img src="assets/img/paso2.png" alt="Nivel 2: Trazá tu ruta financiera" loading="lazy" decoding="async"><span class="lvl-tag">Nivel 2</span></div><div class="lvl-body"><h3>Trazá tu ruta financiera</h3><p>Definí tu punto de partida, tu meta y tu perfil de riesgo. Tu plan personalizado.</p></div></div>
-      <div class="lvl reveal" data-tilt><div class="lvl-img"><img src="assets/img/paso3.png" alt="Nivel 3: Accedé al mundo de la bolsa" loading="lazy" decoding="async"><span class="lvl-tag">Nivel 3</span></div><div class="lvl-body"><h3>Accedé al mundo de la bolsa</h3><p>Cómo funciona la bolsa de EE.UU. y abrí tu cuenta con seguridad y sin miedo.</p></div></div>
-      <div class="lvl reveal" data-tilt><div class="lvl-img"><img src="assets/img/paso4.png" alt="Nivel 4: Activá tu generador de ingresos pasivos" loading="lazy" decoding="async"><span class="lvl-tag">Nivel 4</span></div><div class="lvl-body"><h3>Activá tu generador de ingresos pasivos</h3><p>Identificá empresas y ETFs sólidos. Leé los datos clave para decidir con criterio.</p></div></div>
-      <div class="lvl reveal" data-tilt><div class="lvl-img"><img src="assets/img/paso5.png" alt="Nivel 5: Invertí y cobrá tus primeros dividendos" loading="lazy" decoding="async"><span class="lvl-tag">Nivel 5</span></div><div class="lvl-body"><h3>Invertí y cobrá tus primeros dividendos</h3><p>Ejecutá tu primera inversión real y viví la experiencia de ser accionista.</p></div></div>
-      <div class="lvl reveal" data-tilt><div class="lvl-img"><img src="assets/img/paso6.png" alt="Nivel 6: Diseñá tu portafolio estratégico" loading="lazy" decoding="async"><span class="lvl-tag">Nivel 6</span></div><div class="lvl-body"><h3>Diseñá tu portafolio estratégico</h3><p>Armá una cartera diversificada que combine crecimiento, seguridad e ingresos.</p></div></div>
-      <div class="lvl reveal" data-tilt><div class="lvl-img"><img src="assets/img/paso7.png" alt="Nivel 7: Escalá y reinvertí" loading="lazy" decoding="async"><span class="lvl-tag">Nivel 7</span></div><div class="lvl-body"><h3>Escalá y reinvertí</h3><p>Hacé crecer tu estrategia con la fuerza del interés compuesto a largo plazo.</p></div></div>
-      <div class="lvl lvl-cta reveal" style="background:linear-gradient(135deg,rgba(43,217,118,.1),var(--card)); border-color:rgba(43,217,118,.3)">
-        <div>
-          <div style="font-family:Sora,sans-serif; font-weight:800; font-size:19px; margin-bottom:10px">¿Empezamos?</div>
-          <p style="font-size:13px; color:var(--muted); margin-bottom:18px">Tu camino de 7 niveles arranca hoy.</p>
-          <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary" target="_blank" rel="noopener">Empezar hoy →</a>
+      <div class="gate-row phone">
+        <div class="gate-field">
+          <label for="gPais">País</label>
+          <select id="gPais" class="gate-select" name="pais" required></select>
+        </div>
+        <div class="gate-field">
+          <label for="gTelefono">WhatsApp / Teléfono</label>
+          <input id="gTelefono" class="gate-input" type="tel" name="telefono" placeholder="8888 8888" autocomplete="tel" required />
         </div>
       </div>
+
+      <div class="gate-error" id="gateError">Por favor completá todos los campos correctamente.</div>
+
+      <button type="submit" class="btn btn-primary btn-lg gate-submit" id="gateSubmitBtn">
+        <span id="gateSubmitLabel">Quiero ver el programa →</span>
+        <span class="gate-loader" id="gateLoader"><span class="gate-spinner"></span> Enviando…</span>
+      </button>
+    </form>
+
+    <div class="gate-success" id="gateSuccess">
+      <div class="check">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3 style="font-size:18px; font-weight:800; margin-bottom:8px">¡Listo! Ya casi entramos…</h3>
+      <p style="font-size:13.5px; color:var(--muted)">Te estamos redirigiendo al programa Inversión en Acción.</p>
     </div>
+
+    <p class="gate-note">Tu información está segura y nunca será compartida con terceros. 🔒</p>
   </div>
 </section>
 
-<!-- QUE INCLUYE -->
-<section class="sec app-sec" id="incluye">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="app-flag"><i data-lucide="zap" class="ic-12"></i> Incluido con tu programa</span>
-      <h2 class="app-hook">No es solo teoría. Es acción.</h2>
-      <p class="lead">Cada lección que ves en clase la ejecutás en tu app <b class="green">"Mi Plan Financiero"</b>. Mientras otros cursos te dejan solo con información, acá tenés tu propio centro de comando para aplicar, practicar y ordenar tus finanzas — módulo por módulo.</p>
-      <div class="app-value">
-        <span class="badge-incl">App exclusiva para estudiantes</span>
-        <span><span class="price-strike">Valor $297/año</span> &nbsp;→&nbsp; <span class="price-free">Incluida sin costo</span></span>
-      </div>
-    </div>
-    <div class="mods">
-      <div class="mod feat reveal" data-tilt><div class="mod-ico"><i data-lucide="search"></i></div><div><h3>Invest Analyzer · la joya de la corona</h3><p>Analizá cualquier acción del mercado de EE.UU. con <b>17 indicadores clave</b>, estados financieros, tendencias históricas y comparación directa contra los índices y sus competidores. Lo que un analista hace en horas, vos lo tenés en segundos.</p></div></div>
-      <div class="mod reveal" data-tilt><div class="mod-ico"><i data-lucide="wallet"></i></div><h3>Mis Finanzas</h3><p>Construí tu presupuesto mensual, identificá oportunidades de mejora y entendé cómo está tu salud financiera hoy.</p></div>
-      <div class="mod reveal" data-tilt><div class="mod-ico"><i data-lucide="trophy"></i></div><h3>Plan Deuda Cero</h3><p>Diseñá la estrategia para salir de deudas con un método probado por miles de personas. Vas a ver tu fecha de libertad con números reales.</p></div>
-      <div class="mod reveal" data-tilt><div class="mod-ico"><i data-lucide="shield"></i></div><h3>Fondo de Emergencia</h3><p>Creá tu fondo, del más básico al más completo, siguiendo cada aporte hasta tenerlo listo. Tu colchón antes de invertir un solo dólar.</p></div>
-      <div class="mod reveal" data-tilt><div class="mod-ico"><i data-lucide="target"></i></div><h3>Mi Meta</h3><p>Definí el monto exacto para tu meta personal y proyectá la fecha estimada en que podrías alcanzarla con los instrumentos del curso.</p></div>
-      <div class="mod reveal" data-tilt><div class="mod-ico"><i data-lucide="calculator"></i></div><h3>Calculadora de Interés Compuesto</h3><p>Visualizá cómo podrían crecer tus aportes a largo plazo definiendo tu aporte mensual y tu inversión inicial.</p></div>
-      <div class="mod reveal" data-tilt><div class="mod-ico"><i data-lucide="ruler"></i></div><h3>Quick Check</h3><p>Un análisis fundamental de los ratios más importantes antes de invertir, explicados uno a uno con ejemplos sencillos.</p></div>
-      <div class="mod reveal" data-tilt><div class="mod-ico"><i data-lucide="file-text"></i></div><h3>Mi Plan</h3><p>Descargá tu plan financiero completo, con tus recomendaciones y tu plan de acción, para llevar control exacto de tus finanzas.</p></div>
-    </div>
-    <div class="cta-banner reveal">
-      <div>
-        <h3>¿Listo para activar tu plan?</h3>
-        <p>Empezá hoy con acceso inmediato al programa y a la app, o agendá una llamada si preferís resolver dudas antes.</p>
-      </div>
-      <div class="cta-banner-btns">
-        <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Quiero empezar a invertir →</a>
-        <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Agendar llamada</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DASHBOARD FINANCIERO -->
-<section class="sec dash-sec">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">Conceptos clave</span>
-      <h2 class="title">El lenguaje de un inversionista informado</h2>
-      <p class="lead">En Investing+ enseñamos los distintos tipos de ratios financieros para tomar decisiones informadas. Con el Quick Check y la app "Mis Finanzas" podés evaluar cualquier empresa con todos los indicadores explicados de forma sencilla, con una evaluación que toma 5 minutos e información en tiempo real.</p>
-    </div>
-
-    <svg width="0" height="0" style="position:absolute">
-      <defs>
-        <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#2BD976" stop-opacity=".5"/>
-          <stop offset="100%" stop-color="#2BD976" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-    </svg>
-
-    <div class="dash-grid">
-      <div class="dash-card feat reveal" data-tilt>
-        <div>
-          <span class="tag">Dashboard educativo</span>
-          <h3>Visualizá el mercado como un profesional</h3>
-          <p>Dentro de Investing+ tenés el <b class="green">Invest Analyzer</b>, que procesa el resultado de cada indicador y te da una evaluación de la empresa en segundos — una herramienta poderosa que complementa lo que aprendés, para que decidas con criterio y no a ciegas.</p>
-          <div class="dash-ticker">
-            <span class="up">SPY ▲</span><span class="up">VOO ▲</span><span>AAPL</span><span class="up">MSFT ▲</span><span>O</span>
-          </div>
-        </div>
-        <img src="assets/img/dashboard.png" alt="Vista del dashboard educativo Investing+" loading="lazy" decoding="async" />
-      </div>
-
-      <div class="dash-card reveal" data-tilt>
-        <span class="tag">Indicadores de valuación</span>
-        <h3>¿Está cara o barata la empresa?</h3>
-        <p>Ratios como P/E o P/B te muestran si el precio de una acción es razonable frente a sus ganancias y activos, antes de invertir.</p>
-        <svg class="dash-spark" data-series="valuacion" viewBox="0 0 300 54" preserveAspectRatio="none"></svg>
-      </div>
-      <div class="dash-card reveal" data-tilt>
-        <span class="tag">Indicadores de rentabilidad</span>
-        <h3>¿Qué tan eficiente es el negocio?</h3>
-        <p>Métricas como el margen neto o el ROE muestran cuánta ganancia genera realmente la empresa por cada dólar invertido.</p>
-        <svg class="dash-spark" data-series="rentabilidad" viewBox="0 0 300 54" preserveAspectRatio="none"></svg>
-      </div>
-      <div class="dash-card reveal" data-tilt>
-        <span class="tag">Indicadores de crecimiento</span>
-        <h3>¿Hacia dónde va la empresa?</h3>
-        <p>El crecimiento histórico de ingresos y utilidades te ayuda a evaluar si el negocio se está expandiendo de forma sostenida.</p>
-        <svg class="dash-spark" data-series="crecimiento" viewBox="0 0 300 54" preserveAspectRatio="none"></svg>
-      </div>
-      <div class="dash-card reveal" data-tilt>
-        <span class="tag">Indicadores de endeudamiento</span>
-        <h3>¿Qué tan sólida es financieramente?</h3>
-        <p>Ratios de deuda frente a patrimonio o flujo de caja revelan qué tan expuesta está la empresa frente a sus obligaciones.</p>
-        <svg class="dash-spark" data-series="endeudamiento" viewBox="0 0 300 54" preserveAspectRatio="none"></svg>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BENEFICIOS -->
-<section class="sec band">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">Beneficios</span>
-      <h2 class="title">Lo que vas a ganar al sumarte</h2>
-    </div>
-    <div class="benef-grid">
-      <div class="benef reveal" data-tilt><span class="ico"><i data-lucide="sprout"></i></span><div><h3>Aprender desde cero</h3><p>Sin necesidad de experiencia previa ni conocimientos técnicos de finanzas.</p></div></div>
-      <div class="benef reveal" data-tilt><span class="ico"><i data-lucide="eye"></i></span><div><h3>Entender dónde pones tu dinero</h3><p>Vas a saber exactamente qué estás comprando y por qué, sin actuar a ciegas.</p></div></div>
-      <div class="benef reveal" data-tilt><span class="ico"><i data-lucide="map"></i></span><div><h3>Crear una ruta financiera</h3><p>Un plan claro y ordenado, adaptado a tu situación y tus metas.</p></div></div>
-      <div class="benef reveal" data-tilt><span class="ico"><i data-lucide="hand"></i></span><div><h3>Evitar decisiones impulsivas</h3><p>Vas a aprender a analizar antes de actuar, lejos del ruido y las modas.</p></div></div>
-      <div class="benef reveal" data-tilt><span class="ico"><i data-lucide="bar-chart-3"></i></span><div><h3>Analizar empresas y ETFs</h3><p>Herramientas y criterios reales para evaluar oportunidades con fundamento.</p></div></div>
-      <div class="benef reveal" data-tilt><span class="ico"><i data-lucide="brain"></i></span><div><h3>Construir confianza con educación</h3><p>El conocimiento reemplaza el miedo y la incertidumbre frente al mercado.</p></div></div>
-      <div class="benef reveal" data-tilt><span class="ico"><i data-lucide="users"></i></span><div><h3>Tener acompañamiento</h3><p>No estás solo en el proceso: contás con guía y soporte continuo.</p></div></div>
-    </div>
-    <div class="cta-banner reveal">
-      <div>
-        <h3>¿Ya estás listo para dar el siguiente paso?</h3>
-        <p>Empezá a invertir hoy con el programa completo, o agendá una llamada gratuita si preferís resolver tus dudas primero.</p>
-      </div>
-      <div class="cta-banner-btns">
-        <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Quiero empezar a invertir →</a>
-        <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Agendar llamada</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SOBRE MI -->
-<section class="sec about" id="sobre-mi">
-  <div class="wrap about-grid">
-    <div class="about-photo reveal" data-tilt>
-      <img src="assets/img/pablo-about.jpg" alt="Pablo Narváez" loading="lazy" decoding="async">
-    </div>
-    <div class="reveal">
-      <span class="eyebrow">Quién soy</span>
-      <h2>Juan Pablo Narváez</h2>
-      <span class="role">Entrenador Financiero</span>
-      <p>Soy profesional en banca, finanzas y operaciones, y creé Investing+ para ayudarte a aprender inversión de forma simple, estructurada y responsable. Más de <b>15 años</b> en banca corporativa global, trabajando en <b>tres instituciones bancarias internacionales</b> y ocupando posiciones de <b>Gerencia Regional</b> — un camino que me llevó a asesorar equipos en Europa, Asia y América. Hoy me desempeño como <b>Gerente de Operaciones, liderando equipos en Asia y América</b> para una empresa del <b>top 5 mundial por capitalización bursátil</b>.</p>
-      <div class="cred-row">
-        <span class="cred"><span class="g">●</span> Licenciatura en Banca y Finanzas</span>
-        <span class="cred"><span class="g">●</span> MBA en Administración de Negocios</span>
-        <span class="cred"><span class="g">●</span> MBA en Project Management</span>
-        <span class="cred"><span class="g">●</span> +9 años invirtiendo en EE.UU.</span>
-      </div>
-      <p>Pero los títulos no hacen crecer tu dinero — las decisiones sí. Creé Inversión en Acción para enseñarte, de forma simple y estructurada, exactamente lo que a mí me tomó años aprender: a invertir con criterio y construir una estrategia financiera real.</p>
-      <p class="sign">Un gusto que formes parte de Inversión en Acción.</p>
-    </div>
-  </div>
-</section>
-
-<!-- MITOS -->
-<section class="sec band">
-  <div class="wrap">
-    <div class="center reveal"><span class="eyebrow">La verdad</span><h2 class="title">5 mitos que te frenan (y la realidad)</h2></div>
-    <div class="myths">
-      <div class="myth reveal"><span class="tag">Mito</span><h3>Invertir consume demasiado tiempo</h3><span class="truth">Realidad</span><p>La inversión a largo plazo no requiere estar pegado a la pantalla. Aprendés a invertir de forma estratégica y ordenada.</p></div>
-      <div class="myth reveal"><span class="tag">Mito</span><h3>Necesito mucho dinero para empezar</h3><span class="truth">Realidad</span><p>Podés empezar con montos pequeños y aumentar tus aportes progresivamente conforme avanzás en el programa.</p></div>
-      <div class="myth reveal"><span class="tag">Mito</span><h3>Invertir es solo para expertos</h3><span class="truth">Realidad</span><p>Con la educación correcta y herramientas simples, cualquier persona aprende a invertir paso a paso.</p></div>
-      <div class="myth reveal"><span class="tag">Mito</span><h3>La bolsa es apostar</h3><span class="truth">Realidad</span><p>Apostar depende de la suerte. Invertir es comprar partes de empresas reales con fundamentos y análisis.</p></div>
-      <div class="myth reveal"><span class="tag">Mito</span><h3>Es demasiado complicado</h3><span class="truth">Realidad</span><p>No necesitás ser economista. Con una guía correcta aprendés de forma simple y práctica, desde cero.</p></div>
-      <div class="myth reveal" style="border-color:rgba(43,217,118,.3)"><span class="truth" style="color:var(--green)">El miedo es el verdadero costo</span><h3 style="text-decoration:none;color:var(--text)">No dejes que te cueste las mejores oportunidades</h3><p>Llegó la hora de avanzar con confianza y un método claro, paso a paso.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIOS -->
-<section class="sec">
-  <div class="wrap">
-    <div class="center reveal"><span class="eyebrow">Testimonios</span><h2 class="title">Lo que dicen quienes ya empezaron</h2><p class="lead">Iremos sumando experiencias reales de estudiantes a medida que avanzan en el programa.</p></div>
-    <div class="testi-grid">
-      <div class="testi reveal" data-tilt>
-        <div class="testi-shot-wrap"><img class="testi-shot" src="assets/img/testimonio1.jpg" alt="Captura de resultado de estudiante de Investing+" loading="lazy" decoding="async" /></div>
-        <span class="stars">★★★★★</span>
-        <p class="quote">"El curso me ayudó a tomar acción. Pasé de tener miedo a invertir, a hacerlo con un plan claro y constancia."</p>
-        <div class="who"><span class="av">EM</span><div><div class="nm">Estudiante Investing+</div><div class="rl">Programa Inversión en Acción</div></div></div>
-      </div>
-      <div class="testi reveal" data-tilt>
-        <div class="testi-shot-wrap"><img class="testi-shot" src="assets/img/testimonio2.jpg" alt="Captura de resultado de estudiante de Investing+" loading="lazy" decoding="async" /></div>
-        <span class="stars">★★★★★</span>
-        <p class="quote">"La plataforma me ayudó a ordenarme. Por primera vez tengo mis finanzas y mis inversiones organizadas en un solo lugar."</p>
-        <div class="who"><span class="av">RC</span><div><div class="nm">Estudiante Investing+</div><div class="rl">Programa Inversión en Acción</div></div></div>
-      </div>
-      <div class="testi reveal" data-tilt>
-        <div class="testi-shot-wrap"><img class="testi-shot" src="assets/img/testimonio3.jpg" alt="Captura de resultado de estudiante de Investing+" loading="lazy" decoding="async" /></div>
-        <span class="stars">★★★★★</span>
-        <p class="quote">"Me gustó que Pablo siempre está atento y aclara cualquier duda. Nunca me sentí solo en el proceso."</p>
-        <div class="who"><span class="av">JV</span><div><div class="nm">Estudiante Investing+</div><div class="rl">Programa Inversión en Acción</div></div></div>
-      </div>
-      <div class="testi reveal" data-tilt>
-        <div class="testi-shot-wrap"><img class="testi-shot" src="assets/img/testimonio4.jpg" alt="Captura de resultado de estudiante de Investing+" loading="lazy" decoding="async" /></div>
-        <span class="stars">★★★★★</span>
-        <p class="quote">"Pablo me motivó, y gracias a él obtuve estos resultados. Su acompañamiento hizo toda la diferencia."</p>
-        <div class="who"><span class="av">DS</span><div><div class="nm">Estudiante Investing+</div><div class="rl">Programa Inversión en Acción</div></div></div>
-      </div>
-      <div class="testi reveal" data-tilt>
-        <div class="testi-shot-wrap"><img class="testi-shot" src="assets/img/testimonio5.jpg" alt="Captura de resultado de estudiante de Investing+" loading="lazy" decoding="async" /></div>
-        <span class="stars">★★★★★</span>
-        <p class="quote">"El curso me abrió los ojos. Estoy logrando rendimientos que no me hubiera imaginado antes de empezar."</p>
-        <div class="who"><span class="av">MP</span><div><div class="nm">Estudiante Investing+</div><div class="rl">Programa Inversión en Acción</div></div></div>
-      </div>
-      <div class="testi reveal" data-tilt>
-        <div class="testi-shot-wrap"><img class="testi-shot" src="assets/img/testimonio6.jpg" alt="Captura de resultado de estudiante de Investing+" loading="lazy" decoding="async" /></div>
-        <span class="stars">★★★★★</span>
-        <p class="quote">"Gracias a Investing+ ordené mis finanzas y hoy invierto con confianza, viendo resultados reales mes a mes."</p>
-        <div class="who"><span class="av">AL</span><div><div class="nm">Estudiante Investing+</div><div class="rl">Programa Inversión en Acción</div></div></div>
-      </div>
-    </div>
-    <p class="testi-disclaimer">Resultados de estudiantes con al menos 6 meses dentro del programa. Son experiencias individuales y no garantizan resultados similares; toda inversión conlleva riesgos.</p>
-  </div>
-</section>
-
-<!-- OFERTA / CTA -->
-<section class="sec band">
-  <div class="wrap">
-    <div class="center reveal"><span class="eyebrow">¿Es para vos?</span><h2 class="title">Investing+ es para vos si...</h2></div>
-    <div class="offer-grid">
-      <div class="offer-card yes reveal">
-        <h3>Sí es para vos</h3>
-        <ul>
-          <li>Querés aprender a invertir desde cero, con estructura</li>
-          <li>Buscás ordenar tus finanzas antes de invertir</li>
-          <li>Estás dispuesto a aprender paso a paso, sin atajos</li>
-          <li>Querés tomar decisiones informadas, no impulsivas</li>
-          <li>Valorás el acompañamiento durante el proceso</li>
-        </ul>
-      </div>
-      <div class="offer-card no reveal">
-        <h3>No es para vos</h3>
-        <ul>
-          <li>Buscás resultados garantizados o "hacerte rico rápido"</li>
-          <li>No estás dispuesto a estudiar ni dedicar tiempo</li>
-          <li>Esperás que alguien invierta tu dinero por vos</li>
-          <li>Buscás asesoría financiera personalizada y no educación</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="incl-card reveal">
-      <ul class="stack">
-        <li><span class="nm"><span class="check">✓</span><span>Programa completo de 7 niveles<span class="sub">Clases con acceso de por vida</span></span></span><span class="val">$1,200</span></li>
-        <li><span class="nm"><span class="check">✓</span><span>App "Mi Plan Financiero" (1 año)<span class="sub">Tu centro de comando para ejecutar lo aprendido</span></span></span><span class="val">$297</span></li>
-        <li><span class="nm"><span class="check">✓</span><span>Llamadas grupales de acompañamiento<span class="sub">Soporte continuo para resolver tus dudas</span></span></span><span class="val">$300</span></li>
-        <li><span class="nm"><span class="check">✓</span><span>Invest Analyzer · 17 indicadores<span class="sub">Analizá cualquier acción con criterio</span></span></span><span class="val">$197</span></li>
-      </ul>
-      <div class="stack-total"><span class="t-lbl">Valor total</span><span class="t-val"><s style="color:var(--muted)">$1,994</s></span></div>
-      <div class="price-anchor">
-        <div class="was">Hoy no pagás <s>$1,994</s>.</div>
-        <div class="save-big"><span class="k">Tu ahorro de hoy</span><span class="amt">$1,300</span></div>
-        <div class="now">Hoy, solo por <b>$597</b></div>
-        <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary btn-lg" style="width:100%; display:flex" target="_blank" rel="noopener">Quiero empezar a invertir →</a>
-      </div>
-    </div>
-
-    <div class="callout reveal">
-      <h3>¿Todavía tenés dudas?</h3>
-      <p>Agendá una llamada gratis de <b style="color:var(--text)">15 minutos</b> conmigo o con mi equipo, y aclaramos todas tus dudas sobre el programa. Sin compromiso.</p>
-      <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" class="btn btn-call btn-lg" target="_blank" rel="noopener">Agendar mi llamada gratis →</a>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="sec" id="faq">
-  <div class="wrap">
-    <div class="center reveal"><span class="eyebrow">Preguntas frecuentes</span><h2 class="title">Lo que querés saber antes de entrar</h2></div>
-    <div class="faq reveal">
-      <details class="qa"><summary>¿Necesito experiencia previa? <span class="ic">+</span></summary><div class="a">No. El programa fue creado para empezar desde cero. Aprenderás paso a paso cómo funciona la inversión en la bolsa de EE.UU. de forma simple y práctica.</div></details>
-      <details class="qa"><summary>¿Necesito mucho dinero para empezar? <span class="ic">+</span></summary><div class="a">No. Podés iniciar con montos accesibles y aumentar tus aportes de forma progresiva, a tu ritmo y según tu situación.</div></details>
-      <details class="qa"><summary>¿Esto es asesoría financiera? <span class="ic">+</span></summary><div class="a">No. Investing+ es un programa de educación financiera. No brindamos asesoría de inversión personalizada ni gestionamos tu dinero; te enseñamos a tomar tus propias decisiones con criterio.</div></details>
-      <details class="qa"><summary>¿El programa promete ganancias? <span class="ic">+</span></summary><div class="a">No. Ninguna inversión tiene resultados garantizados. Lo que sí vas a obtener es educación sólida para entender el mercado, reducir errores comunes y tomar decisiones más informadas.</div></details>
-      <details class="qa"><summary>¿Cuánto dura el programa? <span class="ic">+</span></summary><div class="a">El programa está organizado en 7 niveles con acceso de por vida, para que avances a tu propio ritmo y repases el contenido cuando lo necesites.</div></details>
-      <details class="qa"><summary>¿Qué pasa si no entiendo nada de bolsa? <span class="ic">+</span></summary><div class="a">Está pensado justamente para eso: empezar desde cero, sin tecnicismos, explicando cada concepto de forma simple antes de avanzar al siguiente nivel.</div></details>
-      <details class="qa"><summary>¿Puedo llevarlo junto con mi trabajo? <span class="ic">+</span></summary><div class="a">Sí. Es 100% online, con clases a tu ritmo y horarios flexibles, pensado para compaginarlo con tu rutina diaria.</div></details>
-      <details class="qa"><summary>¿Incluye acompañamiento? <span class="ic">+</span></summary><div class="a">Sí. Contás con llamadas grupales de acompañamiento y soporte continuo para resolver tus dudas durante el proceso de aprendizaje.</div></details>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="sec final">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">Tu próximo paso</span>
-      <div class="final-ctas">
-        <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Quiero empezar a invertir →</a>
-        <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Agendar mi llamada</a>
-      </div>
-      <p class="final-note">En una llamada de 15 minutos evacuamos cualquier duda o consulta antes de empezar, sin compromiso.</p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="foot">
-      <a class="logo logo-text" href="#top">Investing<span class="plus">+</span></a>
-      <div style="display:flex; gap:16px; font-size:14px" class="muted">
-        <a href="https://pay.hotmart.com/N105692193M" target="_blank" rel="noopener">Inscribirme</a>
-        <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" target="_blank" rel="noopener">Agendar llamada</a>
-        <a href="mailto:contacto@investing-plus.com">Contacto</a>
-      </div>
-    </div>
-    <p class="legal">
-      <b>Aviso legal:</b> El contenido de Investing+ es educativo y no constituye asesoría financiera personalizada. Toda inversión conlleva riesgos y cada persona debe tomar decisiones de acuerdo con su situación financiera. Inversión en Acción · Investing+ es un programa de <b>educación financiera</b>. Todo el contenido de este sitio y del programa tiene fines exclusivamente educativos e informativos y <b>no constituye asesoría financiera, de inversión, legal ni tributaria</b>, ni una recomendación personalizada para comprar o vender ningún instrumento financiero. Pablo Narváez e Investing+ no son asesores de inversión registrados. Toda inversión en los mercados financieros implica riesgo, incluida la <b>posible pérdida total o parcial del capital invertido</b>. Los ejemplos, gráficas y rendimientos mostrados (incluido el rendimiento histórico del S&amp;P 500) son ilustrativos y se basan en datos históricos; <b>los rendimientos pasados no garantizan ni predicen resultados futuros</b>.
-    </p>
-    <p class="legal" style="margin-top:14px; opacity:.8">© <span id="year"></span> Investing+ · Inversión en Acción. Todos los derechos reservados.</p>
-  </div>
-</footer>
-
-<div class="sticky-cta" id="stickyCta">
-  <a href="https://calendly.com/inversionenaccion-investingplus/inversion-en-accion" class="btn btn-ghost" target="_blank" rel="noopener">Llamada gratis</a>
-  <a href="https://pay.hotmart.com/N105692193M" class="btn btn-primary" target="_blank" rel="noopener">Quiero invertir</a>
-</div>
-
-<script src="js/main.js" defer></script>
+<script src="js/paises.js"></script>
+<script src="js/gate.js"></script>
 </body>
 </html>
