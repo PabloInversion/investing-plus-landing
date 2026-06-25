@@ -85,10 +85,18 @@ module.exports = async function handler(req, res) {
     // Si algun slug de campo personalizado no existe en la cuenta,
     // reintentamos solo con nombre/apellido (campos estandar de Systeme.io).
     if (!r.ok && r.status === 422 && !esDuplicado(data)) {
-      ({ r, data } = await crearContacto([
-        { slug: 'first_name', value: firstName },
-        { slug: 'surname', value: lastName },
-      ]));
+      ({ r, data } = await crearContacto(
+        [
+          { slug: 'first_name', value: firstName },
+          { slug: 'surname', value: lastName },
+        ].filter((f) => f.value)
+      ));
+    }
+
+    // Ultimo respaldo: si incluso asi sigue rechazando, creamos el contacto
+    // solo con el correo para no perder el lead.
+    if (!r.ok && r.status === 422 && !esDuplicado(data)) {
+      ({ r, data } = await crearContacto([]));
     }
 
     if (r.ok) {
