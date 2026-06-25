@@ -2,6 +2,10 @@
 // y lo envia a Systeme.io via su API REST. La API key nunca se expone al
 // navegador: vive solo como variable de entorno en Vercel.
 
+// Etiqueta "Lead-Landing" en Systeme.io: permite armar una campana de email
+// dirigida solo a quienes entraron por el formulario de la landing.
+const TAG_ID = 2068772;
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -35,17 +39,38 @@ module.exports = async function handler(req, res) {
     { slug: 'country', value: pais },
   ].filter((f) => f.value);
 
+  const headers = { 'Content-Type': 'application/json', 'X-API-Key': apiKey };
+
   async function crearContacto(fields) {
     const r = await fetch('https://api.systeme.io/api/contacts', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': apiKey,
-      },
+      headers,
       body: JSON.stringify({ email, fields }),
     });
     const data = await r.json().catch(() => ({}));
     return { r, data };
+  }
+
+  async function buscarContactoPorEmail() {
+    const r = await fetch(
+      `https://api.systeme.io/api/contacts?email=${encodeURIComponent(email)}`,
+      { headers }
+    );
+    const data = await r.json().catch(() => ({}));
+    return data?.items?.[0]?.id || null;
+  }
+
+  async function etiquetar(contactId) {
+    if (!contactId) return;
+    try {
+      await fetch(`https://api.systeme.io/api/contacts/${contactId}/tags`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ tagId: TAG_ID }),
+      });
+    } catch (err) {
+      console.error('No se pudo etiquetar el contacto:', err);
+    }
   }
 
   const esDuplicado = (data) =>
@@ -67,11 +92,14 @@ module.exports = async function handler(req, res) {
     }
 
     if (r.ok) {
+      await etiquetar(data?.id);
       return res.status(200).json({ ok: true });
     }
 
-    // El contacto ya existia: el dato sigue capturado en Systeme.io.
+    // El contacto ya existia: lo etiquetamos igual y seguimos.
     if (esDuplicado(data)) {
+      const id = await buscarContactoPorEmail();
+      await etiquetar(id);
       return res.status(200).json({ ok: true, alreadyExists: true });
     }
 
